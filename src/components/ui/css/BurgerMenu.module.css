@@ -1,0 +1,16 @@
+.btnBurger{
+    background-color: #FBF2CF;
+    border: none;
+    height: 40px;
+    align-self: center;
+    cursor: pointer;
+    border-radius: 7px;
+
+}
+.btnBurger:active{
+    transform: scale(0.9);
+}
+img{
+    width: 30px;
+    align-items: center;
+}

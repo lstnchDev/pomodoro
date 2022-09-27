@@ -1,0 +1,13 @@
+
+.task{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    border: 3px dotted #FBF2CF;
+    padding: 0 15px;
+    color: #FBF2CF;
+}
+.btnColor{
+    background-color: #FA7070;
+    border: 1px dotted #FBF2CF;
+}

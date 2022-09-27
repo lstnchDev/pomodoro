@@ -1,0 +1,13 @@
+.time{
+    border: 2px solid #FBF2CF;
+    padding: 5px 10px;
+    cursor: default;
+    color: #FBF2CF;
+    font-weight: 600;
+    font-size: 1.4rem;
+    width: 100px;
+    text-align: center;
+
+}
+.time::before{
+}

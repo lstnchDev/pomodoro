@@ -1,0 +1,36 @@
+header{
+    margin-top: 20px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #FBF2CF;
+    border-left: 1px solid #FBF2CF;
+    border-right: 1px solid #FBF2CF;
+
+    position: sticky;
+}
+.logo{
+    color: #FBF2CF;
+    width: 140px;   
+    cursor: pointer; 
+}
+a{
+    text-decoration: none;
+    color: #FBF2CF;
+}
+.menu{
+    display: flex;
+    list-style-type: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+li{
+    cursor: pointer;
+}
+.btnCustom{
+    border: 2px solid #FBF2CF;
+}
+.btnCustom:hover{
+    color: #C6EBC5;
+}

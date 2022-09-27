@@ -1,0 +1,14 @@
+.pomodoroItem{
+    max-width: 40%;
+    margin: 100px auto;
+    text-align: center;
+
+}
+.pomodoroTime{
+    font-size: 6rem;
+    margin: 0;
+}
+.btnItems{
+    display: flex;
+    justify-content: center;
+}

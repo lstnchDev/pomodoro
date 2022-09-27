@@ -1,0 +1,20 @@
+.tasks{
+    max-width: 40%;
+    margin: 0 auto;
+}
+h2{
+    margin: 0;
+    color: #FBF2CF;
+}
+.taskHeader{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #FBF2CF;
+    padding: 10px;
+}
+.btnCustom{
+    border: 2px solid #FBF2CF;
+}
+.btnCustom:hover{
+    color: #C6EBC5;
+}
