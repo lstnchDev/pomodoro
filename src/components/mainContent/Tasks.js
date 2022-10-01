@@ -8,7 +8,6 @@ import TaskContext from "../tasks/task-context"
 const Tasks = (props)=>{
     const taskContext = useContext(TaskContext)
     const hasItems = taskContext.items.length > 0
-
     return (
         <Fragment>
             <div className={styles.tasks}>

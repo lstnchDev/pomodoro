@@ -34,3 +34,24 @@ li{
 .btnCustom:hover{
     color: #C6EBC5;
 }
+.modal{
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    background-color: #A1C298;
+    height: 40%;
+    width: 40%;
+    border-radius: 20px;
+    color: #FBF2CF;
+    text-align: center;
+    border: none;
+
+}
+.inputTimer{
+    align-items: center;
+}
+.inputTimer input{
+    width: 60px;
+    height: 60px;
+    
+}

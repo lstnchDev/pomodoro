@@ -4,7 +4,7 @@ const Input = (props)=>{
     return(
         <div>
             <label htmlFor={props.htmlFor}/>
-            <input htmlFor={props.htmlFor} type={props.type} min={props.min} onChange={props.onChange} value={props.value} placeholder={props.placeholder}/>
+            <input htmlFor={props.htmlFor} type={props.type} min={props.min} max={props.max} onChange={props.onChange} value={props.value} placeholder={props.placeholder}/>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import { useReducer, useState } from "react"
 import TaskContext from "./task-context"
 
 
@@ -18,11 +18,13 @@ const testTask = [
 ]
 
  const defaultTasks = {
-    items: testTask
+    items: testTask,
+    timer: 1500
  }
 
 const ADD_ITEM = "ADD_ITEM"
 const REMOVE_ITEM = "REMOVE_ITEM"
+const SET_TIMER = "SET_TIMER"
 
 const taskReducer = (state, action)=>{
     if(action.type === ADD_ITEM){
@@ -32,8 +34,23 @@ const taskReducer = (state, action)=>{
         }
     }
     if (action.type === REMOVE_ITEM){
+        const currentTask = state.items[0]
+
+        if(currentTask.activeStage !== currentTask.state){
+
+        }
+        let updateItems = state.items.filter(item => item.id !== currentTask.id)
         console.log(state.items)
 
+        return {
+            items: state.items
+        }
+    }
+    if (action.type === SET_TIMER){
+        return {
+            items: state.items,
+            timer: action.seconds
+        }
     }
 }
 
@@ -54,10 +71,18 @@ const TaskContextProvider = (props)=>{
             item: item
         })
     }
+    const setTimerHandler = (seconds)=>{
+        dispatchTaskAction({
+            type: SET_TIMER,
+            seconds: seconds
+        })
+    }
     const taskContext = {
         items: taskState.items,
+        timer: taskState.timer,
         addItem: addItemHandler,
-        removeItem: removeItemHandler
+        removeItem: removeItemHandler,
+        setTimer: setTimerHandler
     }
 
     return <TaskContext.Provider value={taskContext}>{props.children}</TaskContext.Provider>

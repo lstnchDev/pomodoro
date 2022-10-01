@@ -29,6 +29,7 @@ const MainContent = ()=>{
         taskContext.addItem({
             id: Math.floor(Math.random()*1000) + 1,
             title: title,
+            activeStage: 0,
             stage: stage
         })
         setActive(false)
