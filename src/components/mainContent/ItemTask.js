@@ -3,7 +3,6 @@ import styles from "./css/ItemTask.module.css"
 
 
 const ItemTask = (props)=>{
-    console.log(props.activeStage, props.stage)
     return (
         <li className={styles.task}>
             <h3>{props.title}</h3>

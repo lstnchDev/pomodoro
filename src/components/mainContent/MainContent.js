@@ -38,11 +38,11 @@ const MainContent = ()=>{
         setTitle(e.target.value)
     }
     const onStageHandler = (e)=>{
-        setStage(e.target.value)
+        setStage(parseInt(e.target.value))
     }
     return(
         <Fragment>
-            <PomodoroItem/>
+            <PomodoroItem timer={taskContext.timer}/>
             <Tasks onClickHandler={openModal}/>
             <Modal 
                 className={styles.modal}

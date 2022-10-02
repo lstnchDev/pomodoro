@@ -4,7 +4,7 @@ const TaskContext = React.createContext({
     items: [],
     timer: 0,
     addItem: (item)=>{},
-    removeItem: (id)=>{},
+    removeItem: (continueTask)=>{},
     setTimer: (seconds)=>{}
 })
 

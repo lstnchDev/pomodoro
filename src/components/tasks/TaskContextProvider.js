@@ -19,7 +19,7 @@ const testTask = [
 
  const defaultTasks = {
     items: testTask,
-    timer: 1500
+    timer: 180
  }
 
 const ADD_ITEM = "ADD_ITEM"
@@ -30,20 +30,25 @@ const taskReducer = (state, action)=>{
     if(action.type === ADD_ITEM){
         let updateItems = state.items.concat(action.item)
         return {
-            items: updateItems
+            items: updateItems,
+            timer: 180
         }
+
     }
     if (action.type === REMOVE_ITEM){
         const currentTask = state.items[0]
-
-        if(currentTask.activeStage !== currentTask.state){
-
-        }
-        let updateItems = state.items.filter(item => item.id !== currentTask.id)
+        currentTask.activeStage++
+        console.log(state.items)
+        let updateItems = state.items
+        currentTask.stage = action.continueTask ? currentTask.stage + 1 : currentTask.stage
+        if(currentTask.activeStage === currentTask.stage){
+                updateItems = state.items.filter(item => item.id !== currentTask.id)
+        } 
         console.log(state.items)
 
         return {
-            items: state.items
+            items: updateItems,
+            timer: 180
         }
     }
     if (action.type === SET_TIMER){
@@ -65,10 +70,10 @@ const TaskContextProvider = (props)=>{
         })
     }
 
-    const removeItemHandler = (item)=>{
+    const removeItemHandler = (continueTask)=>{
         dispatchTaskAction({
             type: REMOVE_ITEM,
-            item: item
+            continueTask: continueTask
         })
     }
     const setTimerHandler = (seconds)=>{
