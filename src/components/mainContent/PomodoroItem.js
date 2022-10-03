@@ -18,33 +18,38 @@ const isContinue = "Do you want to extend the task?"
 const PomodoroItem = (props)=>{
 
     const taskContext = useContext(TaskContext)
-    const [timeSeconds, setTimer] = useState(taskContext.timer)
+    const [timeSeconds, setTimer] = useState(taskContext.timerWork)
+
     const [pomodorState, setPomodorState] = useState(STOP)
     const [modeState, setModeState] = useState(WORK)
 
+    const [pomodoroActive, setActiveState] = useState(true)
+
+    console.log(taskContext)
+
     const timer = new Date(timeSeconds * 1000).toISOString().substring(14, 19)
+
     useEffect(()=>{
-  
+        
         if (timeSeconds === 0){
             if (modeState === WORK){
                 // setPomodorState(PAUSE)
-                setModeState(CHILL)
+                let audio = document.querySelector('.notifSound')
+                audio.play()
                 if (taskContext.items[0].stage - taskContext.items[0].activeStage === 1){
                     taskContext.removeItem(window.confirm(isContinue)) 
                 }              
-                let audio = document.querySelector('.notifSound')
-                audio.play()
-        
-                taskContext.setTimer(120)
+                setActiveState(false)
+                setModeState(CHILL)
+                setTimer(taskContext.timerChill)
             }
-            if (modeState === CHILL){
+            else if (modeState === CHILL){
                 // setPomodorState(PAUSE)
-                setModeState(WORK)
                 let audio = document.querySelector('.notifStartSound')
                 audio.play()
-
-                taskContext.setTimer(300)
-                
+                setActiveState(true)
+                setModeState(WORK)
+                setTimer(taskContext.timerWork)
             }
         }
         else{
@@ -54,10 +59,14 @@ const PomodoroItem = (props)=>{
                 }, 1000)
 
                 return ()=> clearInterval(time)
+            }else if (pomodorState === STOP){
+                if(pomodoroActive){
+                    setTimer(taskContext.timerWork)
+                }else setTimer(taskContext.timerChill)
+        
             }
-            else if(pomodorState === STOP) setTimer(taskContext.timer) 
         }
-    },[timeSeconds, pomodorState, modeState, taskContext])
+    },[timeSeconds, pomodorState, modeState, taskContext, pomodoroActive])
     
     const onStartHandler = ()=> {
         let audio = document.querySelector('.btnSound')
@@ -66,6 +75,7 @@ const PomodoroItem = (props)=>{
             setPomodorState(PAUSE)
         }
         else setPomodorState(START)
+
     } 
     const onResetHandler = ()=>{
         let audio = document.querySelector('.btnSound')
@@ -75,10 +85,10 @@ const PomodoroItem = (props)=>{
     const onSkipHandler = ()=>{
         let audio = document.querySelector('.btnSound')
         audio.play()
-
+        console.log(taskContext)
         if (modeState === WORK){
             setModeState(CHILL)
-            taskContext.setTimer(120)
+            setTimer(taskContext.timerChill)
             if (taskContext.items[0].stage - taskContext.items[0].activeStage === 1){
                 taskContext.removeItem(window.confirm(isContinue)) 
             }
@@ -86,9 +96,11 @@ const PomodoroItem = (props)=>{
         }
         if (modeState === CHILL){
             setModeState(WORK)
-            taskContext.setTimer(300)
+            setTimer(taskContext.timerWork)
         }       
         setPomodorState(STOP)
+        setActiveState(!pomodoroActive)
+
     }
     return (
         <div>

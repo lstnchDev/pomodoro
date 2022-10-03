@@ -19,7 +19,9 @@ const testTask = [
 
  const defaultTasks = {
     items: testTask,
-    timer: 180
+    timerWork: 1500,
+    timerChill: 300,
+
  }
 
 const ADD_ITEM = "ADD_ITEM"
@@ -31,7 +33,9 @@ const taskReducer = (state, action)=>{
         let updateItems = state.items.concat(action.item)
         return {
             items: updateItems,
-            timer: 180
+            timerWork: state.timerWork,
+            timerChill: state.timerChill,
+
         }
 
     }
@@ -44,17 +48,19 @@ const taskReducer = (state, action)=>{
         if(currentTask.activeStage === currentTask.stage){
                 updateItems = state.items.filter(item => item.id !== currentTask.id)
         } 
-        console.log(state.items)
+        console.log(state.timerChill)
 
         return {
             items: updateItems,
-            timer: 180
+            timerWork: state.timerWork,
+            timerChill: state.timerChill,
         }
     }
     if (action.type === SET_TIMER){
         return {
             items: state.items,
-            timer: action.seconds
+            timerWork: action.timerWorkSeconds,
+            timerChill: action.timerChillSeconds,
         }
     }
 }
@@ -76,15 +82,17 @@ const TaskContextProvider = (props)=>{
             continueTask: continueTask
         })
     }
-    const setTimerHandler = (seconds)=>{
+    const setTimerHandler = (timerWorkSeconds, timerChillSeconds)=>{
         dispatchTaskAction({
             type: SET_TIMER,
-            seconds: seconds
+            timerWorkSeconds: timerWorkSeconds,
+            timerChillSeconds: timerChillSeconds,
         })
     }
     const taskContext = {
         items: taskState.items,
-        timer: taskState.timer,
+        timerWork: taskState.timerWork,
+        timerChill: taskState.timerChill,
         addItem: addItemHandler,
         removeItem: removeItemHandler,
         setTimer: setTimerHandler
