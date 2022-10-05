@@ -39,19 +39,29 @@ li{
     top: 30%;
     left: 30%;
     background-color: #A1C298;
-    height: 40%;
     width: 40%;
     border-radius: 20px;
     color: #FBF2CF;
-    text-align: center;
     border: none;
+    text-align: center;
 
 }
+.timerModal{
+    padding: 25px;
+}
+.timerModal h2{
+    border-bottom: 2px solid #FBF2CF;
+}
 .inputTimer{
-    align-items: center;
+    display: flex;
+    justify-content: space-around;
 }
 .inputTimer input{
-    width: 60px;
-    height: 60px;
-    
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    background-color: #C6EBC5;
+}
+button{
+    justify-self: center;
 }

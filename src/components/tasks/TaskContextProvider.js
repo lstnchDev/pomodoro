@@ -2,6 +2,7 @@ import { useReducer, useState } from "react"
 import TaskContext from "./task-context"
 
 
+
 const testTask = [
     {
         id: 1,
@@ -17,10 +18,15 @@ const testTask = [
     },
 ]
 
+const DEFAULT_ITEMS = localStorage.getItem('items') != null ? JSON.parse(localStorage.getItem('items')) : []
+const DEFAULT_WORK = localStorage.getItem('timerWork') != null ? localStorage.getItem('timerWork') : 1500
+const DEFAULT_CHILL = localStorage.getItem('timerChill') != null ? localStorage.getItem('timerChill') : 300
+
+
  const defaultTasks = {
-    items: testTask,
-    timerWork: 1500,
-    timerChill: 300,
+    items: DEFAULT_ITEMS,
+    timerWork: DEFAULT_WORK,
+    timerChill: DEFAULT_CHILL,
 
  }
 
@@ -31,25 +37,23 @@ const SET_TIMER = "SET_TIMER"
 const taskReducer = (state, action)=>{
     if(action.type === ADD_ITEM){
         let updateItems = state.items.concat(action.item)
+        localStorage.setItem('items', JSON.stringify(updateItems))
         return {
-            items: updateItems,
+            items: JSON.parse(localStorage.getItem('items')),
             timerWork: state.timerWork,
             timerChill: state.timerChill,
-
         }
 
     }
     if (action.type === REMOVE_ITEM){
         const currentTask = state.items[0]
         currentTask.activeStage++
-        console.log(state.items)
         let updateItems = state.items
         currentTask.stage = action.continueTask ? currentTask.stage + 1 : currentTask.stage
         if(currentTask.activeStage === currentTask.stage){
                 updateItems = state.items.filter(item => item.id !== currentTask.id)
         } 
-        console.log(state.timerChill)
-
+        localStorage.setItem('items', JSON.stringify(updateItems))
         return {
             items: updateItems,
             timerWork: state.timerWork,
@@ -57,6 +61,9 @@ const taskReducer = (state, action)=>{
         }
     }
     if (action.type === SET_TIMER){
+        localStorage.setItem('timerWork', action.timerWorkSeconds)
+        localStorage.setItem('timerChill', action.timerChillSeconds)
+
         return {
             items: state.items,
             timerWork: action.timerWorkSeconds,

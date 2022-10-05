@@ -25,26 +25,27 @@ const PomodoroItem = (props)=>{
 
     const [pomodoroActive, setActiveState] = useState(true)
 
-    console.log(taskContext)
-
     const timer = new Date(timeSeconds * 1000).toISOString().substring(14, 19)
 
     useEffect(()=>{
         
         if (timeSeconds === 0){
             if (modeState === WORK){
-                // setPomodorState(PAUSE)
                 let audio = document.querySelector('.notifSound')
                 audio.play()
-                if (taskContext.items[0].stage - taskContext.items[0].activeStage === 1){
-                    taskContext.removeItem(window.confirm(isContinue)) 
-                }              
+                console.log(taskContext.items[0])
+
+                if (taskContext.items[0]){
+                    if (taskContext.items[0].stage - taskContext.items[0].activeStage === 1){
+                        taskContext.removeItem(window.confirm(isContinue)) 
+                    }else taskContext.removeItem(false)
+      
+                }        
                 setActiveState(false)
                 setModeState(CHILL)
                 setTimer(taskContext.timerChill)
             }
             else if (modeState === CHILL){
-                // setPomodorState(PAUSE)
                 let audio = document.querySelector('.notifStartSound')
                 audio.play()
                 setActiveState(true)
@@ -85,13 +86,12 @@ const PomodoroItem = (props)=>{
     const onSkipHandler = ()=>{
         let audio = document.querySelector('.btnSound')
         audio.play()
-        console.log(taskContext)
         if (modeState === WORK){
             setModeState(CHILL)
             setTimer(taskContext.timerChill)
             if (taskContext.items[0].stage - taskContext.items[0].activeStage === 1){
                 taskContext.removeItem(window.confirm(isContinue)) 
-            }
+            }else taskContext.removeItem(false)
 
         }
         if (modeState === CHILL){

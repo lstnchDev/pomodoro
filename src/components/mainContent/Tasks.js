@@ -7,6 +7,7 @@ import TaskContext from "../tasks/task-context"
 
 const Tasks = (props)=>{
     const taskContext = useContext(TaskContext)
+    console.log(taskContext.items)
     const hasItems = taskContext.items.length > 0
     return (
         <Fragment>

@@ -11,7 +11,7 @@ const HeaderMain = ()=>{
     const [modalActive, setActive] = useState(false)
     const taskContext = useContext(TaskContext)
 
-    const [timerWork, setTimerWork] = useState(taskContext.timerWork)
+    const [timerWork, setTimerWork] = useState(taskContext.timerWork/60)
     const [timerChill, setTimerChill] = useState(taskContext.timerChill/60)
 
 
@@ -53,12 +53,21 @@ const HeaderMain = ()=>{
                 isOpen={modalActive}
                 onRequestClose={closeModal}
             >
-            <div className={styles.inputTimer}>
+            <div className={styles.timerModal}>
                 <h2>TIMER SETTING</h2>
-                <Input htmlFor='minuteWork' type='number' min='1' max='60' value={timerWork} onChange={onChangeTimerWork}></Input>
-                <Input htmlFor='minuteChill' type='number' min='1' max='60' value={timerChill} onChange={onChangeTimerChill}></Input>
+                <div className={styles.inputTimer}>
+                    <div className={styles.workTimer}>
+                        <h3>Work Time</h3>
+                        <Input htmlFor='minuteWork' type='number' min='1' max='60' value={timerWork} onChange={onChangeTimerWork}></Input>
+                    </div>
+                    <div className={styles.chillTimer}>
+                        <h3>Chill Time</h3>
+                        <Input htmlFor='minuteChill' type='number' min='1' max='60' value={timerChill} onChange={onChangeTimerChill}></Input>
+                </div>
 
+                </div>
                 <Button onClick={onClickHandler}>OK</Button>
+
             </div>
             </Modal>
         </header>
