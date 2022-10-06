@@ -1,22 +1,8 @@
-import { useReducer, useState } from "react"
+import { useReducer } from "react"
 import TaskContext from "./task-context"
 
 
 
-const testTask = [
-    {
-        id: 1,
-        title: "test",
-        activeStage: 0,
-        stage: 1 
-    },
-    {
-        id: 2,
-        title: "chill",
-        activeStage: 1,
-        stage: 2
-    },
-]
 
 const DEFAULT_ITEMS = localStorage.getItem('items') != null ? JSON.parse(localStorage.getItem('items')) : []
 const DEFAULT_WORK = localStorage.getItem('timerWork') != null ? localStorage.getItem('timerWork') : 1500
@@ -33,6 +19,7 @@ const DEFAULT_CHILL = localStorage.getItem('timerChill') != null ? localStorage.
 const ADD_ITEM = "ADD_ITEM"
 const REMOVE_ITEM = "REMOVE_ITEM"
 const SET_TIMER = "SET_TIMER"
+const REMOVE_ALL = "REMOVE_ALL"
 
 const taskReducer = (state, action)=>{
     if(action.type === ADD_ITEM){
@@ -58,6 +45,16 @@ const taskReducer = (state, action)=>{
             items: updateItems,
             timerWork: state.timerWork,
             timerChill: state.timerChill,
+        }
+    }
+    if (action.type === REMOVE_ALL){
+        localStorage.removeItem('items')
+        console.log(12)
+        return {
+            items: [],
+            timerWork: state.timerWork,
+            timerChill: state.timerChill,
+
         }
     }
     if (action.type === SET_TIMER){
@@ -96,13 +93,21 @@ const TaskContextProvider = (props)=>{
             timerChillSeconds: timerChillSeconds,
         })
     }
+    const removeAllHandler = ()=>{
+        dispatchTaskAction({
+            type: REMOVE_ALL,
+
+        })
+    }
     const taskContext = {
         items: taskState.items,
         timerWork: taskState.timerWork,
         timerChill: taskState.timerChill,
         addItem: addItemHandler,
         removeItem: removeItemHandler,
-        setTimer: setTimerHandler
+        setTimer: setTimerHandler,
+        removeAll: removeAllHandler,
+
     }
 
     return <TaskContext.Provider value={taskContext}>{props.children}</TaskContext.Provider>

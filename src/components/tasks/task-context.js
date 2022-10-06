@@ -6,7 +6,8 @@ const TaskContext = React.createContext({
     timerChill: 0,
     addItem: (item)=>{},
     removeItem: (continueTask)=>{},
-    setTimer: (timerWorkSeconds, timerChillSeconds)=>{}
+    setTimer: (timerWorkSeconds, timerChillSeconds)=>{},
+    removeAll: ()=>{}
 })
 
 export default TaskContext
