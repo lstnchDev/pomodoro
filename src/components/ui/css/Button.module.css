@@ -1,8 +1,9 @@
 .button{
     background-color: #FA7070;
     border: none;
-    padding: 5px 20px;
-    font-size: 1.4rem;
+    padding: 5px 15px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
     color: #FBF2CF;
     font-weight: 600;
     align-self: center;

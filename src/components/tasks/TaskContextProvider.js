@@ -3,12 +3,12 @@ import TaskContext from "./task-context"
 
 
 
-
+// базовые значения, если пользователь не установил свои
 const DEFAULT_ITEMS = localStorage.getItem('items') != null ? JSON.parse(localStorage.getItem('items')) : []
 const DEFAULT_WORK = localStorage.getItem('timerWork') != null ? localStorage.getItem('timerWork') : 1500
 const DEFAULT_CHILL = localStorage.getItem('timerChill') != null ? localStorage.getItem('timerChill') : 300
 
-
+// получаем базовый массив данных
  const defaultTasks = {
     items: DEFAULT_ITEMS,
     timerWork: DEFAULT_WORK,
@@ -22,50 +22,67 @@ const SET_TIMER = "SET_TIMER"
 const REMOVE_ALL = "REMOVE_ALL"
 
 const taskReducer = (state, action)=>{
-    if(action.type === ADD_ITEM){
-        let updateItems = state.items.concat(action.item)
-        localStorage.setItem('items', JSON.stringify(updateItems))
-        return {
-            items: JSON.parse(localStorage.getItem('items')),
-            timerWork: state.timerWork,
-            timerChill: state.timerChill,
+    let updateItems
+    switch(action.type){
+        case ADD_ITEM: 
+            // создаем новый обновленный массив задач
+            updateItems = state.items.concat(action.item)
+            //добавляем в хранилиззе массив задач
+            localStorage.setItem('items', JSON.stringify(updateItems))
+            return {
+                items: JSON.parse(localStorage.getItem('items')),
+                timerWork: state.timerWork,
+                timerChill: state.timerChill,
         }
+        case REMOVE_ITEM:
+            //получаем самую раннюю задачу
+            const currentTask = state.items[0]
 
-    }
-    if (action.type === REMOVE_ITEM){
-        const currentTask = state.items[0]
-        currentTask.activeStage++
-        let updateItems = state.items
-        currentTask.stage = action.continueTask ? currentTask.stage + 1 : currentTask.stage
-        if(currentTask.activeStage === currentTask.stage){
-                updateItems = state.items.filter(item => item.id !== currentTask.id)
-        } 
-        localStorage.setItem('items', JSON.stringify(updateItems))
-        return {
-            items: updateItems,
-            timerWork: state.timerWork,
-            timerChill: state.timerChill,
-        }
-    }
-    if (action.type === REMOVE_ALL){
-        localStorage.removeItem('items')
-        console.log(12)
-        return {
-            items: [],
-            timerWork: state.timerWork,
-            timerChill: state.timerChill,
+            //увеличиваем помодоро уровень
+            currentTask.activeStage++
+            updateItems = state.items
 
-        }
-    }
-    if (action.type === SET_TIMER){
-        localStorage.setItem('timerWork', action.timerWorkSeconds)
-        localStorage.setItem('timerChill', action.timerChillSeconds)
+            //когда остается последний уровень, то появляется алерт для пользователя с вопросом, 
+            //если пользователь нажимает "ОК", то получаем continueTask = true, 
+            //то тогда увеличиваем уровень задачи на 1, если пользователь нажимает "Отмена",
+            // то continueTask = false и stage остается прежним
+            currentTask.stage = action.continueTask ? currentTask.stage + 1 : currentTask.stage
 
-        return {
-            items: state.items,
-            timerWork: action.timerWorkSeconds,
-            timerChill: action.timerChillSeconds,
-        }
+            //если уровень помодоро достиг предела, то данная задача удаляется
+            if(currentTask.activeStage === currentTask.stage){
+                    updateItems = state.items.filter(item => item.id !== currentTask.id)
+            } 
+            localStorage.setItem('items', JSON.stringify(updateItems))
+            return {
+                items: updateItems,
+                timerWork: state.timerWork,
+                timerChill: state.timerChill,
+            }
+        case REMOVE_ALL:
+            //удаляем из хранилища все задачи
+            localStorage.removeItem('items')
+            return {
+                items: [],
+                timerWork: state.timerWork,
+                timerChill: state.timerChill,
+            }
+        case SET_TIMER:
+                 //обновляем в хранилище данные по времени работы и перерыва
+                localStorage.setItem('timerWork', action.timerWorkSeconds)
+                localStorage.setItem('timerChill', action.timerChillSeconds)
+
+                return {
+                    items: state.items,
+                    timerWork: action.timerWorkSeconds,
+                    timerChill: action.timerChillSeconds,
+                }
+        default: 
+            return{
+                items: state.items,
+                timerWork: state.timerWorkSeconds,
+                timerChill: state.timerChillSeconds
+            }
+    
     }
 }
 

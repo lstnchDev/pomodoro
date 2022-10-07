@@ -1,0 +1,11 @@
+input{
+    border: none;
+    background: #FBF2CF;
+}
+.error{
+    color: #FA7070;
+    font-weight: 600;
+}
+.error p{
+    margin: 0;
+}

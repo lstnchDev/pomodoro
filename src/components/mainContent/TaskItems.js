@@ -5,6 +5,7 @@ import TaskContext from "../tasks/task-context"
 
 const TaskItems = (props)=>{
 
+    // получаем массив задач и создаем для каждой контейнер
     const taskItem = props.items.map((item)=> <ItemTask
         key={item.id}
         id={item.id}

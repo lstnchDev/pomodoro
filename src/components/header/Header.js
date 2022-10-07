@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
 import Modal from "react-modal"
+import ModalContent from "../mainContent/ModalContent"
 import TaskContext from "../tasks/task-context"
 import Button from "../ui/Button"
-import Input from "../ui/Input"
 import CurrentTime from "./CurrentTime"
 import styles from './Header.module.css'
 
@@ -31,9 +31,8 @@ const HeaderMain = ()=>{
     const onChangeTimerChill = (e)=>{
         setTimerChill(e.target.value)
     }
-    const onClickHandler = (e)=>{
-        e.preventDefault()
-        taskContext.setTimer(timerWork*60, timerChill*60)
+    const onSubmitHandler = (data)=>{
+        taskContext.setTimer(data.timeWork*60, data.timerChill*60)
         setActive(false)
     }
 
@@ -42,19 +41,36 @@ const HeaderMain = ()=>{
             <div className={styles.logo}>
                 <h1><a href="/">MyPomodoro</a></h1>
             </div>
+
+            {/*получаем актуальное время пользователя*/}
             <CurrentTime/>
             <nav>
                 <ul className={styles.menu}>
                     <li><Button onClick={openModal} className={styles.btnCustom}>Настройки</Button></li>
                 </ul>
             </nav>
+
+            {/*создается модальное окно с помощью react-modal*/}
             <Modal
                 className={styles.modal}
                 isOpen={modalActive}
                 onRequestClose={closeModal}
             >
-            <div className={styles.timerModal}>
-                <h2>TIMER SETTING</h2>
+             {/*получаем компонент для модального окна*/}
+                <ModalContent titleModal="TIMER SETTING"
+                                actionName="Set Time"
+                                firstInputType="number"
+                                lastInputType="number"
+                                firstInputName="timeWork"
+                                lastInputName="timerChill"
+                                modalActive={closeModal} 
+                                taskHandler={onChangeTimerWork}
+                                stageHandler={onChangeTimerChill}
+                                submitHandler={onSubmitHandler}
+                                title={timerWork}
+                                stage={timerChill}
+                    />
+                {/* <h2>TIMER SETTING</h2>
                 <div className={styles.inputTimer}>
                     <div className={styles.workTimer}>
                         <h3>Work Time</h3>
@@ -67,8 +83,7 @@ const HeaderMain = ()=>{
 
                 </div>
                 <Button onClick={onClickHandler}>OK</Button>
-
-            </div>
+            </div> */}
             </Modal>
         </header>
     )

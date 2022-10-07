@@ -25,16 +25,20 @@ const PomodoroItem = (props)=>{
 
     const [pomodoroActive, setActiveState] = useState(true)
 
+    /*создаем переменную для перевода в дату и получения времени*/
     const timer = new Date(timeSeconds * 1000).toISOString().substring(14, 19)
 
     useEffect(()=>{
         
+        /*когда таймер заканчивается*/
         if (timeSeconds === 0){
+            
+            /*проверка последнего сосояния помодоро*/
             if (modeState === WORK){
                 let audio = document.querySelector('.notifSound')
                 audio.play()
-                console.log(taskContext.items[0])
-
+                
+                /*проверка на наличие задач*/
                 if (taskContext.items[0]){
                     if (taskContext.items[0].stage - taskContext.items[0].activeStage === 1){
                         taskContext.removeItem(window.confirm(isContinue)) 
@@ -69,6 +73,7 @@ const PomodoroItem = (props)=>{
         }
     },[timeSeconds, pomodorState, modeState, taskContext, pomodoroActive])
     
+    /*кнопка START/STOP*/
     const onStartHandler = ()=> {
         let audio = document.querySelector('.btnSound')
         audio.play()
@@ -78,20 +83,25 @@ const PomodoroItem = (props)=>{
         else setPomodorState(START)
 
     } 
+
+    /*кнопка RESET для сброса таймера и состояния*/
     const onResetHandler = ()=>{
         let audio = document.querySelector('.btnSound')
         audio.play()
         setPomodorState(STOP)
     }
+    /*кнопка SCIP для пропуска актуального состояния*/
     const onSkipHandler = ()=>{
         let audio = document.querySelector('.btnSound')
         audio.play()
         if (modeState === WORK){
             setModeState(CHILL)
             setTimer(taskContext.timerChill)
-            if (taskContext.items[0].stage - taskContext.items[0].activeStage === 1){
-                taskContext.removeItem(window.confirm(isContinue)) 
-            }else taskContext.removeItem(false)
+            if (taskContext.items[0]){
+                if (taskContext.items[0].stage - taskContext.items[0].activeStage === 1){
+                    taskContext.removeItem(window.confirm(isContinue)) 
+                }else taskContext.removeItem(false)    
+            }
 
         }
         if (modeState === CHILL){
@@ -118,7 +128,6 @@ const PomodoroItem = (props)=>{
                     src={notifSound}></audio>
                 <audio className='notifStartSound'
                     src={notifStartSound}></audio>
-
             </Card> 
         </div>        
     )

@@ -12,6 +12,9 @@ const MainContent = ()=>{
     const [moadlActive, setActive] = useState(false)
     
     const taskContext = useContext(TaskContext)
+    const [title, setTitle] = useState("")
+    const [stage, setStage] = useState(1)
+
 
     const openModal = ()=>{
         setActive(true)
@@ -20,6 +23,23 @@ const MainContent = ()=>{
     const closeModal = ()=>{
         setActive(false)
     }
+    const onTaskHandler = (e)=>{
+        setTitle(e.target.value)
+    }
+    const onStageHandler = (e)=>{
+        setStage(e.target.value)
+    }
+    const onSubmitHandler = (data)=>{
+        
+        taskContext.addItem({
+            id: Math.floor(Math.random()*1000) + 1,
+            title: data.taskTitle,
+            activeStage: 0,
+            stage: data.stageTitle
+        })
+        setActive(false)
+    }
+
 
     return(
         <Fragment>
@@ -30,7 +50,20 @@ const MainContent = ()=>{
                 isOpen={moadlActive}
                 onRequestClose={closeModal}
             >
-                <ModalContent modalActive={closeModal}/>
+                <ModalContent titleModal="New task"
+                            actionName="Add Task"
+                            firstInputType="text"
+                            lastInputType="number"
+                            firstInputName="taskTitle"
+                            lastInputName="stageTitle"
+                            lastInputLabel="Est Pomodoros"
+                            modalActive={closeModal} 
+                            taskHandler={onTaskHandler}
+                            stageHandler={onStageHandler}
+                            submitHandler={onSubmitHandler}
+                            title={title}
+                            stage={stage}
+                />
             </Modal>
         </Fragment>
     )

@@ -7,10 +7,11 @@ import TaskContext from "../tasks/task-context"
 
 const Tasks = (props)=>{
     const taskContext = useContext(TaskContext)
+
+    /*проверка на наличие задач*/
     const hasItems = taskContext.items.length > 0
 
     const onClickHandler = ()=> {
-        console.log(12)
         taskContext.removeAll()
     }
 
@@ -22,6 +23,7 @@ const Tasks = (props)=>{
                     <Button onClick={props.onClickHandler} className={styles.btnCustom}>New Task</Button>
                     <BurgerMenu onClick={onClickHandler} className={styles.btnColor}/>
                 </div>
+                {/* если задачи есть, то формируется компонент */}
                 {hasItems && <TaskItems items={taskContext.items}/>}
             </div>
         </Fragment>
