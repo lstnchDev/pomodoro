@@ -7,11 +7,14 @@ import clickSound from '../../sound/btnSound.mp3'
 import notifSound from '../../sound/notifSound.mp3'
 import notifStartSound from '../../sound/notifStartSound.mp3'
 
-const WORK = "WORK"
-const CHILL = "CHILL"
-const PAUSE = "PAUSE"
-const START = "START"
-const STOP = "STOP"
+const statePomodoro = {
+    WORK: "WORK",
+    CHILL: "CHILL",
+    PAUSE: "PAUSE",
+    START: "START",
+    STOP: "STOP",
+
+}
 
 const isContinue = "Do you want to extend the task?"
 
@@ -20,8 +23,8 @@ const PomodoroItem = (props)=>{
     const taskContext = useContext(TaskContext)
     const [timeSeconds, setTimer] = useState(taskContext.timerWork)
 
-    const [pomodorState, setPomodorState] = useState(STOP)
-    const [modeState, setModeState] = useState(WORK)
+    const [pomodorState, setPomodorState] = useState(statePomodoro.STOP)
+    const [modeState, setModeState] = useState(statePomodoro.WORK)
 
     const [pomodoroActive, setActiveState] = useState(true)
 
@@ -34,7 +37,7 @@ const PomodoroItem = (props)=>{
         if (timeSeconds === 0){
             
             /*проверка последнего сосояния помодоро*/
-            if (modeState === WORK){
+            if (modeState === statePomodoro.WORK){
                 let audio = document.querySelector('.notifSound')
                 audio.play()
                 
@@ -46,25 +49,25 @@ const PomodoroItem = (props)=>{
       
                 }        
                 setActiveState(false)
-                setModeState(CHILL)
+                setModeState(statePomodoro.CHILL)
                 setTimer(taskContext.timerChill)
             }
-            else if (modeState === CHILL){
+            else if (modeState === statePomodoro.CHILL){
                 let audio = document.querySelector('.notifStartSound')
                 audio.play()
                 setActiveState(true)
-                setModeState(WORK)
+                setModeState(statePomodoro.WORK)
                 setTimer(taskContext.timerWork)
             }
         }
         else{
-            if(pomodorState === START){
+            if(pomodorState === statePomodoro.START){
                 const time = setTimeout(()=>{
                     setTimer(timeSeconds-1)
                 }, 1000)
 
                 return ()=> clearInterval(time)
-            }else if (pomodorState === STOP){
+            }else if (pomodorState === statePomodoro.STOP){
                 if(pomodoroActive){
                     setTimer(taskContext.timerWork)
                 }else setTimer(taskContext.timerChill)
@@ -77,10 +80,10 @@ const PomodoroItem = (props)=>{
     const onStartHandler = ()=> {
         let audio = document.querySelector('.btnSound')
         audio.play()
-        if (pomodorState === START) {
-            setPomodorState(PAUSE)
+        if (pomodorState === statePomodoro.START) {
+            setPomodorState(statePomodoro.PAUSE)
         }
-        else setPomodorState(START)
+        else setPomodorState(statePomodoro.START)
 
     } 
 
@@ -88,14 +91,14 @@ const PomodoroItem = (props)=>{
     const onResetHandler = ()=>{
         let audio = document.querySelector('.btnSound')
         audio.play()
-        setPomodorState(STOP)
+        setPomodorState(statePomodoro.STOP)
     }
     /*кнопка SCIP для пропуска актуального состояния*/
     const onSkipHandler = ()=>{
         let audio = document.querySelector('.btnSound')
         audio.play()
-        if (modeState === WORK){
-            setModeState(CHILL)
+        if (modeState === statePomodoro.WORK){
+            setModeState(statePomodoro.CHILL)
             setTimer(taskContext.timerChill)
             if (taskContext.items[0]){
                 if (taskContext.items[0].stage - taskContext.items[0].activeStage === 1){
@@ -104,21 +107,22 @@ const PomodoroItem = (props)=>{
             }
 
         }
-        if (modeState === CHILL){
-            setModeState(WORK)
+        if (modeState === statePomodoro.CHILL){
+            setModeState(statePomodoro.WORK)
             setTimer(taskContext.timerWork)
         }       
-        setPomodorState(STOP)
+        setPomodorState(statePomodoro.STOP)
         setActiveState(!pomodoroActive)
 
     }
+    console.log(pomodorState.STOP)
     return (
         <div>
             <Card className={styles.pomodoroItem}>
                 <h1 className={styles.pomodoroTime}>{timer}</h1>
                 <div className={styles.btnItems}>
                     <Button onClick={onResetHandler}>RESET</Button>
-                    <Button onClick={onStartHandler}>{pomodorState}</Button>
+                    <Button onClick={onStartHandler}>{pomodorState === statePomodoro.START ? statePomodoro.STOP : statePomodoro.START}</Button>
                     <Button onClick={onSkipHandler}>SKIP</Button>
 
                 </div>
