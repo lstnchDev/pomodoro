@@ -22,10 +22,13 @@ const ModalContent = (props)=>{
             <h1>{props.titleModal}</h1>
                 <FormProvider {...formMethods}>
                     <form onSubmit={handleSubmit(props.submitHandler)}>
-                        <Input {...register(props.firstInputName, {required:"Please enter valid input"})}
-                           errors={errors.taskTitle} name={props.firstInputName} htmlFor={props.firstInputName} type={props.firstInputType} onChange={props.taskHandler} value={props.title} placeholder='Add new task...'/>
-                        <Input {...register(props.lastInputName, {required:"Please enter valid input"})}
-                           errors={errors.stageTitle} name={props.lastInputName} htmlFor={props.firstInputName} type={props.lastInputType} onChange={props.stageHandler} min={1} value={props.stage}/>
+                        <div className={styles.inputItems}>
+                            <Input className={styles.numberInput} {...register(props.firstInputName, {required:"Please enter valid input"})}
+                            errors={errors.taskTitle} name={props.firstInputName} htmlFor={props.firstInputName} type={props.firstInputType} onChange={props.taskHandler} value={props.title} placeholder='Add new task...'/>
+                            <Input className={styles.numberInput}{...register(props.lastInputName, {required:"Please enter valid input"})}
+                            errors={errors.stageTitle} name={props.lastInputName} htmlFor={props.firstInputName} type={props.lastInputType} onChange={props.stageHandler} min={1} value={props.stage}/>
+
+                        </div>
                         <Button className={styles.buttonModal} type='sumbut'>{props.actionName}</Button>
                         <Button className={styles.buttonModal} onClick={props.modalActive}>Close</Button>
                     </form>
