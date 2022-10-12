@@ -16,9 +16,6 @@ const BurgerMenu = (props)=>{
     const [anchorEl, setAnchorEl] = useState(null)
     
 
-
-
-
     const handleClick = (e)=>{
         setAnchorEl(e.currentTarget)
         setBurgerState(true)
@@ -59,7 +56,7 @@ const BurgerMenu = (props)=>{
             }}
         >
             {[props.options][0].map((option, index) => (
-            <MenuItem className={styles.dropdownMenu} key={option}  onClick={()=> props.burgerBtnHandler(index)}>
+            <MenuItem className={styles.dropdownMenu} key={option}  onClick={(e)=> props.burgerBtnHandler(e,index)}>
                 {option}
             </MenuItem>
             ))}

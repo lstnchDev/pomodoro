@@ -20,7 +20,7 @@ const Tasks = (props)=>{
     const onRemoveTask = ()=> {
         taskContext.removeAll()
     }
-    const onBurgerBtnHandler = (index)=>{
+    const onBurgerBtnHandler = (e,index)=>{
         switch (index){
             case 0: 
                 taskContext.removeAll()

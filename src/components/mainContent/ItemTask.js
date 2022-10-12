@@ -9,10 +9,10 @@ const options = [
 ]
 const ItemTask = (props)=>{
     const taskContext = useContext(TaskContext)
-    const onBurgerBtnHandler = (index)=>{
+    const onBurgerBtnHandler = (e, index)=>{
         switch (index){
             case 0: 
-                console.log(2)
+                console.log(e.target.childNodes)
                 break
             case 1: 
                 console.log(2)
@@ -23,7 +23,7 @@ const ItemTask = (props)=>{
         }
     }
     return (
-        <li className={styles.task}>
+        <li id={props.id} className={styles.task}>
             <h3>{props.title}</h3>
             <p className={styles.stage}>{props.activeStage}/{props.stage}</p>
             <BurgerMenu burgerBtnHandler={onBurgerBtnHandler} options={options} className={styles.btnColor}/>

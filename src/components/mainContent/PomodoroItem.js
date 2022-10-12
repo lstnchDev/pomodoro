@@ -44,8 +44,8 @@ const PomodoroItem = (props)=>{
                 /*проверка на наличие задач*/
                 if (taskContext.items[0]){
                     if (taskContext.items[0].stage - taskContext.items[0].activeStage === 1){
-                        taskContext.removeItem(window.confirm(isContinue)) 
-                    }else taskContext.removeItem(false)
+                        taskContext.skipItem(window.confirm(isContinue)) 
+                    }else taskContext.skipItem(false)
       
                 }        
                 setActiveState(false)
@@ -102,8 +102,8 @@ const PomodoroItem = (props)=>{
             setTimer(taskContext.timerChill)
             if (taskContext.items[0]){
                 if (taskContext.items[0].stage - taskContext.items[0].activeStage === 1){
-                    taskContext.removeItem(window.confirm(isContinue)) 
-                }else taskContext.removeItem(false)    
+                    taskContext.skipItem(window.confirm(isContinue)) 
+                }else taskContext.skipItem(false)    
             }
 
         }

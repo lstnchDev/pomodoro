@@ -17,7 +17,9 @@ const DEFAULT_CHILL = localStorage.getItem('timerChill') != null ? localStorage.
  }
 
 const ADD_ITEM = "ADD_ITEM"
+const SKIP_ITEM = "SKIP_ITEM"
 const REMOVE_ITEM = "REMOVE_ITEM"
+
 const SET_TIMER = "SET_TIMER"
 const REMOVE_ALL = "REMOVE_ALL"
 
@@ -34,7 +36,7 @@ const taskReducer = (state, action)=>{
                 timerWork: state.timerWork,
                 timerChill: state.timerChill,
         }
-        case REMOVE_ITEM:
+        case SKIP_ITEM:
             //получаем самую раннюю задачу
             const currentTask = state.items[0]
 
@@ -54,6 +56,16 @@ const taskReducer = (state, action)=>{
                     updateItems = state.items.filter(item => item.id !== currentTask.id)
             } 
             localStorage.setItem('items', JSON.stringify(updateItems))
+            return {
+                items: updateItems,
+                timerWork: state.timerWork,
+                timerChill: state.timerChill,
+            }
+        case REMOVE_ITEM:
+            //удаляем из хранилища все задачи
+            updateItems = state.items.filter(item => item.id !== action.id)
+            localStorage.setItem('items', JSON.stringify(updateItems))
+
             return {
                 items: updateItems,
                 timerWork: state.timerWork,
@@ -98,10 +110,16 @@ const TaskContextProvider = (props)=>{
         })
     }
 
-    const removeItemHandler = (continueTask)=>{
+    const skipItemHandler = (continueTask)=>{
+        dispatchTaskAction({
+            type: SKIP_ITEM,
+            continueTask: continueTask
+        })
+    }
+    const removeItemHandler = (id)=>{
         dispatchTaskAction({
             type: REMOVE_ITEM,
-            continueTask: continueTask
+            id: id
         })
     }
     const setTimerHandler = (timerWorkSeconds, timerChillSeconds)=>{
@@ -122,6 +140,7 @@ const TaskContextProvider = (props)=>{
         timerWork: taskState.timerWork,
         timerChill: taskState.timerChill,
         addItem: addItemHandler,
+        skipItem: skipItemHandler,
         removeItem: removeItemHandler,
         setTimer: setTimerHandler,
         removeAll: removeAllHandler,

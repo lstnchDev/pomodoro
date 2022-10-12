@@ -15,8 +15,6 @@ const ModalContent = (props)=>{
             errors,
         },
         handleSubmit} = formMethods
-
-
     return (
         <Fragment>
             <h1>{props.titleModal}</h1>
