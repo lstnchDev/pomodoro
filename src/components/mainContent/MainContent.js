@@ -22,6 +22,10 @@ const MainContent = ()=>{
 
     const closeModal = ()=>{
         setActive(false)
+        setStage(1)
+        setTitle("")
+
+        
     }
     const onTaskHandler = (e)=>{
         setTitle(e.target.value)
@@ -30,7 +34,6 @@ const MainContent = ()=>{
         setStage(e.target.value)
     }
     const onSubmitHandler = (data)=>{
-        
         taskContext.addItem({
             id: Math.floor(Math.random()*1000) + 1,
             title: data.taskTitle,
@@ -50,8 +53,13 @@ const MainContent = ()=>{
                 isOpen={moadlActive}
                 onRequestClose={closeModal}
             >
-                <ModalContent titleModal="New task"
-                            actionName="Add Task"
+                <ModalContent 
+                            firstClassName={styles.taskTitleInput}
+                            placeholder="Add new task..."
+                            titleModal="New task"
+                            firstTitle="Task Title"
+                            lastTitle="Est Pomodoros"
+                            btnActionName="Add Task"
                             firstInputType="text"
                             lastInputType="number"
                             firstInputName="taskTitle"

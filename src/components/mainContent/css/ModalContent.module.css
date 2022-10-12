@@ -1,12 +1,13 @@
 .error{
-    color: #FA7070;
+    color: #000000;
     font-weight: 600;
 }
 .buttonModal{
     margin: 10px;
+    margin-bottom: 25px;
 }
 .numberInput{
-    width: 40px;
+    width: 70px;
     height: 40px;
     text-align: center;
     font-size: 1rem;
@@ -15,5 +16,13 @@
 }
 .inputItems {
     display: flex;
-   justify-content: space-around;
+    justify-content: space-around;
+}
+.titleInput{
+    padding: 0;
+    margin: 10px;
+}
+.btnItems{
+    display: block;
+    padding: 10px;
 }

@@ -1,7 +1,6 @@
-import { Fragment, useContext } from "react"
+import { Fragment } from "react"
 import ItemTask from "./ItemTask"
 import styles from "./css/TaskItems.module.css"
-import TaskContext from "../tasks/task-context"
 
 const TaskItems = (props)=>{
 

@@ -3,8 +3,8 @@
     top: 30%;
     left: 38%;
     background-color: #A1C298;
-    height: 25%;
-    width: 25%;
+    height: 29%;
+    width: 35%;
     border-radius: 20px;
     color: #FBF2CF;
     text-align: center;
@@ -16,4 +16,7 @@
 }
 p{
 
+}
+.taskTitleInput{
+    width: 70%;
 }

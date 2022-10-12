@@ -46,7 +46,8 @@ const taskReducer = (state, action)=>{
             //если пользователь нажимает "ОК", то получаем continueTask = true, 
             //то тогда увеличиваем уровень задачи на 1, если пользователь нажимает "Отмена",
             // то continueTask = false и stage остается прежним
-            currentTask.stage = action.continueTask ? currentTask.stage + 1 : currentTask.stage
+
+            currentTask.stage = action.continueTask ? parseInt(currentTask.stage) + 1 : currentTask.stage
 
             //если уровень помодоро достиг предела, то данная задача удаляется
             if(currentTask.activeStage === currentTask.stage){

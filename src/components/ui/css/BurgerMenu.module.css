@@ -14,3 +14,11 @@ img{
     width: 30px;
     align-items: center;
 }
+.burgerMenu{
+    width: 20%;
+    height: 10%;
+    background-color: #FBF2CF;
+}
+.iconBtn{
+   color: #FBF2CF
+}

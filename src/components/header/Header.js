@@ -58,7 +58,9 @@ const HeaderMain = ()=>{
             >
              {/*получаем компонент для модального окна*/}
                 <ModalContent titleModal="TIMER SETTING"
-                                actionName="Set Time"
+                                firstTitle="Work Time"
+                                lastTitle="Chill Time"
+                                btnActionName="Set Time"
                                 firstInputType="number"
                                 lastInputType="number"
                                 firstInputName="timeWork"

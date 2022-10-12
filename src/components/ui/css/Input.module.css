@@ -1,11 +1,16 @@
 input{
     border: none;
     background: #FBF2CF;
+    border-radius: 10px;
+
 }
 .error{
-    color: #FA7070;
+    color: #4e3434;
     font-weight: 600;
 }
 .error p{
     margin: 0;
+}
+.inputItems{
+    display: flexbox;
 }
