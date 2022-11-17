@@ -28,8 +28,10 @@ const PomodoroItem = (props)=>{
 
     const [pomodoroActive, setActiveState] = useState(true)
 
+    const timer = new Date(timeSeconds * 1000).toISOString().slice(11, 19);
+
     /*создаем переменную для перевода в дату и получения времени*/
-    const timer = new Date(timeSeconds * 1000).toISOString().substring(14, 19)
+    // const timer = date.toISOString().substring(14, 19);
 
     useEffect(()=>{
         
@@ -115,7 +117,6 @@ const PomodoroItem = (props)=>{
         setActiveState(!pomodoroActive)
 
     }
-    console.log(pomodorState.STOP)
     return (
         <div>
             <Card className={styles.pomodoroItem}>

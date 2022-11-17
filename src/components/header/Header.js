@@ -32,6 +32,7 @@ const HeaderMain = ()=>{
         setTimerChill(e.target.value)
     }
     const onSubmitHandler = (data)=>{
+        console.log(data)
         taskContext.setTimer(data.timeWork*60, data.timerChill*60)
         setActive(false)
     }
@@ -72,20 +73,7 @@ const HeaderMain = ()=>{
                                 title={timerWork}
                                 stage={timerChill}
                     />
-                {/* <h2>TIMER SETTING</h2>
-                <div className={styles.inputTimer}>
-                    <div className={styles.workTimer}>
-                        <h3>Work Time</h3>
-                        <Input htmlFor='minuteWork' type='number' min='1' max='60' value={timerWork} onChange={onChangeTimerWork}></Input>
-                    </div>
-                    <div className={styles.chillTimer}>
-                        <h3>Chill Time</h3>
-                        <Input htmlFor='minuteChill' type='number' min='1' max='60' value={timerChill} onChange={onChangeTimerChill}></Input>
-                </div>
-
-                </div>
-                <Button onClick={onClickHandler}>OK</Button>
-            </div> */}
+               
             </Modal>
         </header>
     )
